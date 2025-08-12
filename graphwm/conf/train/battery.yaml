@@ -1,0 +1,25 @@
+# reproducibility
+deterministic: false       # ✅ Lowercase boolean
+random_seed: 42
+
+# training
+pl_trainer:
+  fast_dev_run: false       # ✅ Lowercase boolean
+  devices: 1                # ✅ Replaced 'gpus: 1' with 'devices: 1' (PL 1.9+ prefers devices)
+  precision: 32
+  max_steps: 2000000        # ✅ Changed from float (2e6) to int for compatibility
+  accumulate_grad_batches: 1
+  num_sanity_val_steps: 2
+  gradient_clip_val: 20.0
+  limit_train_batches: 1.0
+  limit_val_batches: 2000.0
+  limit_test_batches: 1.0
+  accelerator: ddp
+
+monitor_metric: val_acc_loss   # ✅ Removed quotes (not necessary)
+monitor_metric_mode: min       # ✅ Removed quotes
+
+model_checkpoints:
+  save_top_k: 1
+  save_last: true               # ✅ Lowercase boolean
+  verbose: false                # ✅ Lowercase boolean

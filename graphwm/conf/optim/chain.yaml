@@ -1,0 +1,19 @@
+optimizer:
+  # Adam-oriented deep learning
+  _target_: torch.optim.Adam
+  # These are all default parameters for the Adam optimizer
+  lr: 1e-4
+  betas: [0.9, 0.999]       # ✅ Removed extra spaces for cleaner YAML
+  eps: 1e-8                 # ✅ Lowercase 'e' is fine, standard scientific notation
+  weight_decay: 0
+
+use_lr_scheduler: true      # ✅ Lowercase boolean for YAML compliance
+scheduler_interval: step    # ✅ Removed quotes; plain strings are fine
+
+lr_scheduler:
+  _target_: graphwm.common.CustomScheduleLR
+  min_lr: 2e-6
+  decay_steps: 2e6
+  decay_rate: 0.1
+  last_epoch: -1
+  verbose: false            # ✅ Lowercase boolean

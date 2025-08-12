@@ -1,0 +1,24 @@
+random_seed: 1
+rollout_length: 1000000
+batch_size: 40
+num_batches: 1
+deter: false                 # ✅ lowercase boolean
+save_pos: true               # ✅ lowercase boolean
+save_frequency: 100
+model_dir: ${oc.env:MODEL_DIR}/chain_gns
+save_dir: ${model_dir}
+
+ld_kwargs:
+  step_per_sigma: 5
+  step_size: 0.0001
+
+data:
+  _target_: graphwm.data.PolymerDataset
+  directory: ${oc.env:CHAIN_TEST_DATASET_DIR}
+  split: ${oc.env:PROJECT_ROOT}/splits/chain/test_class2.txt
+  mode: rollout
+  recursive_metis: false      # ✅ lowercase boolean
+
+hydra:
+  run:
+    dir: ${save_dir}
